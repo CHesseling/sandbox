@@ -16,8 +16,8 @@ jobs:
           
           
       - name: Install Dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r sandbox/requirements.txt
       
       - name: execute py script 
         run: |
-          python test.py
+          python sandbox/test.py
