@@ -6,7 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo sandbox
-        uses: actions/checkout@v2 
+        uses: actions/checkout@v3
+        with: CHesseling/sandbox
         
       - name: setup python
         uses: actions/setup-python@v2
@@ -16,8 +17,9 @@ jobs:
           
           
       - name: Install Dependencies
-        run: pip install -r sandbox/requirements.txt
+        run: pip install -r requirements.txt
       
       - name: execute py script 
         run: |
-          python sandbox/test.py
+          cd sandbox/
+          python test.py
