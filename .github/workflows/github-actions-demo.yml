@@ -1,5 +1,10 @@
 name: py
 on: [push]
+
+env:
+  TEMP_DIR: sandbox
+
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -10,6 +15,12 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8 #install the python needed
+        with:
+          repository: CHesseling/sandbox
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ env.TEMP_DIR }}
+          
+          
       - name: packages
         run: |
           python -m pip install --upgrade pip
@@ -17,4 +28,4 @@ jobs:
       
       - name: execute py script # run the run.py to get the latest data
         run: |
-          python test.py
+          python python ${{ env.TEMP_DIR }}/test.py
