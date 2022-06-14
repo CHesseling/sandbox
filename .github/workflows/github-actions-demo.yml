@@ -1,23 +1,22 @@
 name: py
+
 on: [push]
 
 jobs:
-  Explore-GitHub-Actions:
+  Run-Python-Code:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo sandbox
         uses: actions/checkout@v3
-        with: CHesseling/sandbox
-        
+
       - name: setup python
         uses: actions/setup-python@v2
         with:
           python-version: 3.10.5 
           cache: 'pip'
           
-          
       - name: Install Dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r ./.sandbox/requirements.txt
       
       - name: execute py script 
         run: |
