@@ -25,5 +25,4 @@ jobs:
       
       - name: execute py script 
         run: |
-          cd sandbox/
           python test.py
