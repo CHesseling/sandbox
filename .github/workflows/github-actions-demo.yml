@@ -21,7 +21,7 @@ jobs:
         shell: python
         
       - name: Install Dependencies
-        run: pip install -r ./requirements.txt
+        run: pip install pandas
       
       - name: execute py script 
         run: |
