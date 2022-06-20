@@ -1,6 +1,3 @@
-# %% [markdown]
-# <a href="https://colab.research.google.com/github/CHesseling/sandbox/blob/main/Untitled57.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
-
 # %%
 import pandas as pd
 import datetime
