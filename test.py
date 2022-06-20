@@ -13,6 +13,6 @@ d = datetime.datetime.now()
 today = d.strftime('%Y-%m-%d')
 
 # %%
-df.to_csv('RBRTEd'+today+'.csv', index=False)
+df.to_csv('./data/file_'+today+'.csv', index=False)
 
 
