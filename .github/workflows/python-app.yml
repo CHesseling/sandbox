@@ -19,19 +19,18 @@ jobs:
       id-token: write
       
     steps:
-      - name: Docker Run Python
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2 #kohlerdominik/docker-run-action@v1.0.2
-        with:
-          python-version: '3.10'
-          volumes: |
-            ${{ github.workspace }}:/workspace
-          workdir: /workspace
-          run: |
-            python -VV
-            pip install -r requirements.txt
-            python test.py
-          # Available enviroment variables
-          environment: |
-            LC_ALL: de_DE.UTF-8
-            LC_TIME: de_DE.UTF-8
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10' 
+        volumes: |
+          ${{ github.workspace }}:/workspace
+        workdir: /workspace
+        run: |
+          python -VV
+          pip install -r requirements.txt
+          python test.py
+      # Available enviroment variables
+        environment: |
+          LC_ALL: de_DE.UTF-8
+          LC_TIME: de_DE.UTF-8
