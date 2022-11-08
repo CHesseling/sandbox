@@ -12,6 +12,6 @@ d = datetime.datetime.now()
 today = d.strftime('%Y-%m-%d')
 
 # %%
-df.to_csv('file_'+today+'.csv', index=False)
+df.to_csv('file_today.csv', index=False)
 
 
