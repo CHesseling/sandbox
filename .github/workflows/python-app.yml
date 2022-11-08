@@ -35,5 +35,6 @@ jobs:
       run: |
         git config --global user.name 'CHesseling'
         git config --global user.email 'der.hamburger@gmail.com'
+        git add -A
         git commit -am "Automated report"
         git push
