@@ -1,47 +1,49 @@
-name: Python application
+name: Build pegelstaende reports
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ master ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ master ]
+  #schedule:
+  #  - cron: "05 6-18/2 * * *"
 
-permissions:
-  contents: read
-
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: europe-west3-docker.pkg.dev
+  
 jobs:
-  build:
+  run:
+    name: run
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
 
-    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
-          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+      - name: Docker Run Python
+        # uses: kohlerdominik/docker-run-action@085f64350d397dfafb2e875961c6d44bedd3ee26
+        uses: kohlerdominik/docker-run-action@v1.0.2
+        with:
+          # The image to use
+          image: 'europe-west3-docker.pkg.dev/ndrdata-infra/docker-images/python:master'
+          volumes: |
+            ${{ github.workspace }}:/workspace
+          workdir: /workspace
+          # The command to run
+          run: |
+            pip install -r requirements.txt
+            python test.py
+          # Available enviroment variables
+          environment: |
+            LC_ALL: de_DE.UTF-8
+            LC_TIME: de_DE.UTF-8
 
 
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pandas
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Run main py
-      run: |
-        python test.py
 
-    - name: commit files
-      run: |
-        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git commit -m "Add changes" -a
-        
-    - name: push changes
-      uses: ad-m/github-push-action@v0.6.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: main  
+      - name: Cleanup
+        if: always()
+        run: rm "${GOOGLE_APPLICATION_CREDENTIALS}" || true
