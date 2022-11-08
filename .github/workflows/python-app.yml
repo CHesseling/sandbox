@@ -1,4 +1,4 @@
-name: Build pegelstaende reports
+name: Run the Python file
 
 on:
   push:
@@ -21,19 +21,16 @@ jobs:
     permissions:
       contents: read
       id-token: write
-
-
+      
     steps:
       - name: Docker Run Python
         # uses: kohlerdominik/docker-run-action@085f64350d397dfafb2e875961c6d44bedd3ee26
-        uses: kohlerdominik/docker-run-action@v1.0.2
+        uses: actions/setup-python@v2 #kohlerdominik/docker-run-action@v1.0.2
         with:
-          # The image to use
-          image: 'europe-west3-docker.pkg.dev/ndrdata-infra/docker-images/python:master'
+          python-version: '3.10'
           volumes: |
             ${{ github.workspace }}:/workspace
           workdir: /workspace
-          # The command to run
           run: |
             pip install -r requirements.txt
             python test.py
