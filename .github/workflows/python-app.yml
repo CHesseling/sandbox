@@ -31,3 +31,9 @@ jobs:
    #   environment: |
     #     LC_ALL: de_DE.UTF-8
     #     LC_TIME: de_DE.UTF-8
+    - name: Commit report
+      run: |
+        git config --global user.name 'CHesseling'
+        git config --global user.email 'der.hamburger@gmail.com'
+        git commit -am "Automated report"
+        git push
