@@ -2,9 +2,9 @@ name: Run the Python file
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
   #schedule:
   #  - cron: "05 6-18/2 * * *"
 
